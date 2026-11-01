@@ -36,7 +36,7 @@ class ProjectsContent extends StatelessWidget {
           crossAxisCount: width < 600 ? 1 : (width < 800 ? 2 : 3),
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
-          mainAxisExtent: 340,
+          mainAxisExtent: 350,
         ),
         itemBuilder: (_, i) {
           final project = projects[i];
