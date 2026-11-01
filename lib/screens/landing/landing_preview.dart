@@ -1,40 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../../design/theme.dart';
-import '../../widgets/common.dart';
+import 'device_mockup.dart';
+import 'landing_feature_rail.dart';
 
 class LandingPreview extends StatelessWidget {
   const LandingPreview({super.key});
 
   @override
-  Widget build(BuildContext context) => Panel(
-    padding: const EdgeInsets.all(24),
-    child: Column(
-      children: [
-        const Icon(Icons.devices, size: 88, color: Palette.violet),
-        const SizedBox(height: 12),
-        const Text(
-          'YOUR PORTFOLIO',
-          style: TextStyle(color: Palette.muted, letterSpacing: 2),
-        ),
-        const SizedBox(height: 12),
-        const Text(
-          'Software Engineer',
-          style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 12),
-        const Text('About • Experience • Projects • Contact'),
-        const SizedBox(height: 25),
-        const Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: [
-            Chip(label: Text('Flutter')),
-            Chip(label: Text('Firebase')),
-            Chip(label: Text('Clean Architecture')),
-          ],
-        ),
-      ],
-    ),
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, c) => c.maxWidth < 580
+        ? const DeviceMockup()
+        : const Row(
+            children: [
+              Expanded(child: DeviceMockup()),
+              SizedBox(width: 18),
+              SizedBox(width: 205, child: LandingFeatureRail()),
+            ],
+          ),
   );
 }

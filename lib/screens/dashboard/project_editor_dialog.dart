@@ -49,6 +49,7 @@ void showProjectEditor(
             if (title.text.trim().isEmpty) return;
             onSave(
               Project(
+                published: project?.published ?? false,
                 id:
                     project?.id ??
                     DateTime.now().microsecondsSinceEpoch.toString(),

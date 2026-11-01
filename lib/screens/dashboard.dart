@@ -48,7 +48,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           : page == 'Publish & Share'
           ? const PublishShareScreen(embedded: true)
           : DashboardOverview(
-              menu: dashboardMenu,
               page: page,
               projectCount: projects.length,
               onPageSelected: (value) => setState(() => page = value),

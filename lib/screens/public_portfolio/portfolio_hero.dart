@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'portfolio_hero_content.dart';
-import 'portfolio_hero_preview.dart';
+import 'portfolio_visuals.dart';
 
 class PortfolioHero extends StatelessWidget {
   final bool mobile;
@@ -18,7 +18,7 @@ class PortfolioHero extends StatelessWidget {
         child: PortfolioHeroContent(mobile: mobile),
       ),
       const SizedBox(width: 28, height: 30),
-      ExpandedIf(mobile: mobile, child: const PortfolioHeroPreview()),
+      ExpandedIf(mobile: mobile, child: const PortfolioVisuals()),
     ],
   );
 }

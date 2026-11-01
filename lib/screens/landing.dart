@@ -17,7 +17,7 @@ class LandingScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1240),
+                constraints: const BoxConstraints(maxWidth: 1440),
                 child: Padding(
                   padding: EdgeInsets.all(mobile ? 20 : 34),
                   child: Column(
@@ -28,14 +28,16 @@ class LandingScreen extends StatelessWidget {
                         onSignIn: onSignIn,
                         onSignUp: onSignUp,
                       ),
-                      SizedBox(height: mobile ? 52 : 100),
+                      SizedBox(height: mobile ? 42 : 64),
                       LandingHero(
-                        mobile: mobile,
+                        mobile: constraints.maxWidth < 1000,
                         onSignUp: onSignUp,
                         onDemo: onDemo,
                       ),
-                      const SizedBox(height: 85),
-                      const LandingFeatures(),
+                      if (constraints.maxWidth < 1050) ...[
+                        const SizedBox(height: 60),
+                        const LandingFeatures(),
+                      ],
                     ],
                   ),
                 ),

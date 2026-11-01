@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'dashboard_dependencies.dart';
-import 'stat_card.dart';
+import 'dashboard_overview_widgets.dart';
 
 class DashboardOverview extends StatelessWidget {
   final String page;
-  final List<String> menu;
   final int projectCount;
   final ValueChanged<String> onPageSelected;
-
   const DashboardOverview({
     super.key,
     required this.page,
-    required this.menu,
     required this.projectCount,
     required this.onPageSelected,
   });
@@ -26,10 +23,10 @@ class DashboardOverview extends StatelessWidget {
         'Manage your portfolio content',
         style: TextStyle(color: Palette.muted),
       ),
-      const SizedBox(height: 20),
+      const SizedBox(height: 22),
       Wrap(
-        spacing: 12,
-        runSpacing: 12,
+        spacing: 14,
+        runSpacing: 14,
         children: [
           const StatCard(label: 'Experiences', count: '3'),
           StatCard(label: 'Projects', count: '$projectCount'),
@@ -39,29 +36,36 @@ class DashboardOverview extends StatelessWidget {
       ),
       const SizedBox(height: 28),
       const SectionHeading('Quick Actions'),
+      const Text(
+        'Create, update or delete your portfolio content.',
+        style: TextStyle(color: Palette.muted, fontSize: 12),
+      ),
+      const SizedBox(height: 14),
       Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: menu
-            .skip(1)
-            .map(
-              (item) => SizedBox(
-                width: 190,
-                child: InkWell(
-                  onTap: () => onPageSelected(item),
-                  child: Panel(
-                    child: Column(
-                      children: [
-                        const Icon(Icons.edit_note, color: Palette.violet),
-                        const SizedBox(height: 8),
-                        Text(item, textAlign: TextAlign.center),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
-            .toList(),
+        spacing: 14,
+        runSpacing: 14,
+        children: [
+          QuickAction(
+            label: 'Edit About Me',
+            icon: Icons.person_outline,
+            onTap: () => onPageSelected('Profile (About Me)'),
+          ),
+          QuickAction(
+            label: 'Manage Experience',
+            icon: Icons.work_outline,
+            onTap: () => onPageSelected('Experience'),
+          ),
+          QuickAction(
+            label: 'Manage Projects',
+            icon: Icons.layers_outlined,
+            onTap: () => onPageSelected('Projects'),
+          ),
+          QuickAction(
+            label: 'Manage Skills',
+            icon: Icons.code,
+            onTap: () => onPageSelected('Skills'),
+          ),
+        ],
       ),
       if (page != 'Dashboard') ...[
         const SizedBox(height: 25),

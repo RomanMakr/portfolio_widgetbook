@@ -21,6 +21,7 @@ class LandingHero extends StatelessWidget {
     children: [
       ExpandedIfDesktop(
         mobile: mobile,
+        flex: 4,
         child: LandingHeroContent(
           mobile: mobile,
           onSignUp: onSignUp,
@@ -28,7 +29,7 @@ class LandingHero extends StatelessWidget {
         ),
       ),
       const SizedBox(width: 35, height: 35),
-      ExpandedIfDesktop(mobile: mobile, child: const LandingPreview()),
+      ExpandedIfDesktop(mobile: mobile, flex: 7, child: const LandingPreview()),
     ],
   );
 }
@@ -36,15 +37,17 @@ class LandingHero extends StatelessWidget {
 class ExpandedIfDesktop extends StatelessWidget {
   final bool mobile;
   final Widget child;
+  final int flex;
 
   const ExpandedIfDesktop({
     super.key,
     required this.mobile,
     required this.child,
+    this.flex = 1,
   });
 
   @override
   Widget build(BuildContext context) => mobile
       ? SizedBox(width: double.infinity, child: child)
-      : Expanded(child: child);
+      : Expanded(flex: flex, child: child);
 }
