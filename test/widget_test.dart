@@ -1,30 +1,61 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:portfolio_widgetbook/main.dart';
 
+Future<void> pumpPortfolio(WidgetTester tester) async {
+  tester.view.physicalSize = const Size(1440, 1000);
+  tester.view.devicePixelRatio = 1;
+  addTearDown(tester.view.resetPhysicalSize);
+  addTearDown(tester.view.resetDevicePixelRatio);
+  await tester.pumpWidget(const PortfolioApp());
+}
+
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Sign-in validates input before opening the dashboard', (
+    tester,
+  ) async {
+    await pumpPortfolio(tester);
+    expect(find.text('Portfolio Builder'), findsOneWidget);
+    await tester.tap(find.widgetWithText(TextButton, 'Sign In'));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Sign In'));
+    await tester.pumpAndSettle();
+    expect(find.text('Enter a valid email'), findsOneWidget);
+    expect(find.text('At least 6 characters'), findsOneWidget);
+    expect(find.text('Portfolio Admin'), findsNothing);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.enterText(
+      find.byType(TextFormField).at(0),
+      'roman@example.com',
+    );
+    await tester.enterText(find.byType(TextFormField).at(1), 'password123');
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Sign In'));
+    await tester.pumpAndSettle();
+    expect(find.text('Portfolio Admin'), findsOneWidget);
+    expect(find.text('Quick Actions'), findsOneWidget);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('Sign-up can switch to sign-in', (tester) async {
+    await pumpPortfolio(tester);
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Sign Up'));
+    await tester.pumpAndSettle();
+    expect(find.text('Create Account'), findsOneWidget);
+    expect(find.byType(TextFormField), findsNWidgets(3));
+
+    await tester.tap(find.text('Already have an account? Sign In'));
+    await tester.pumpAndSettle();
+    expect(find.text('Access your portfolio builder account'), findsOneWidget);
+    expect(find.byType(TextFormField), findsNWidgets(2));
+  });
+
+  testWidgets('View Demo opens the public portfolio', (tester) async {
+    await pumpPortfolio(tester);
+    await tester.tap(find.widgetWithText(OutlinedButton, 'View Demo'));
+    await tester.pumpAndSettle();
+    expect(find.text('Roman Makaryan'), findsOneWidget);
+    expect(find.text('Featured Projects'), findsOneWidget);
+    expect(find.text('Portfolio Builder'), findsNothing);
   });
 }
