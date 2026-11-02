@@ -5,7 +5,8 @@ import '../../widgets/common.dart';
 
 class PortfolioHeroContent extends StatelessWidget {
   final bool mobile;
-  const PortfolioHeroContent({super.key, required this.mobile});
+  final VoidCallback? onContact;
+  const PortfolioHeroContent({super.key, required this.mobile, this.onContact});
 
   @override
   Widget build(BuildContext context) => Column(
@@ -38,13 +39,7 @@ class PortfolioHeroContent extends StatelessWidget {
             ),
           ),
           OutlinedButton.icon(
-            onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                  'Use the contact form at the bottom of this page.',
-                ),
-              ),
-            ),
+            onPressed: onContact,
             icon: const Icon(Icons.send_outlined, size: 16),
             label: const Text('Contact Me'),
           ),
