@@ -4,7 +4,8 @@ import '../../design/theme.dart';
 import '../../widgets/common.dart';
 
 class PortfolioDetails extends StatelessWidget {
-  const PortfolioDetails({super.key});
+  final GlobalKey? experienceKey;
+  const PortfolioDetails({super.key, this.experienceKey});
 
   @override
   Widget build(BuildContext context) => Column(
@@ -42,7 +43,7 @@ class PortfolioDetails extends StatelessWidget {
         ].map((skill) => Chip(label: Text(skill))).toList(),
       ),
       const SizedBox(height: 35),
-      const SectionHeading('Experience'),
+      SectionHeading('Experience', key: experienceKey),
       const Panel(
         child: ListTile(
           leading: Icon(Icons.work_outline, color: Palette.violet),

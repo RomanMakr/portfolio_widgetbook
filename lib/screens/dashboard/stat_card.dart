@@ -4,23 +4,34 @@ import 'dashboard_dependencies.dart';
 
 class StatCard extends StatelessWidget {
   final String label, count;
-
   const StatCard({super.key, required this.label, required this.count});
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    width: 155,
+    width: 170,
     child: Panel(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.auto_awesome, color: Palette.violet),
-          const SizedBox(height: 8),
+          Icon(
+            switch (label) {
+              'Experiences' => Icons.work_outline,
+              'Projects' => Icons.layers_outlined,
+              'Skills' => Icons.code,
+              _ => Icons.bar_chart,
+            },
+            color: Palette.violet,
+            size: 25,
+          ),
+          const SizedBox(height: 9),
           Text(
             count,
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
           ),
-          Text(label, style: const TextStyle(color: Palette.muted)),
+          Text(
+            label,
+            style: const TextStyle(color: Palette.muted, fontSize: 12),
+          ),
         ],
       ),
     ),

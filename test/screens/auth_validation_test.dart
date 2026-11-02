@@ -28,6 +28,8 @@ void main() {
     await tester.enterText(field('Full Name'), '   ');
     await tester.enterText(field('Email'), 'roman@example.com');
     await tester.enterText(field('Password'), '123456');
+    await tester.enterText(field('Confirm Password'), '123456');
+    await tester.tap(find.byType(Checkbox));
     await tester.tap(find.widgetWithText(ElevatedButton, 'Sign Up'));
     await tester.pumpAndSettle();
     expect(find.text('Enter your name'), findsOneWidget);

@@ -12,13 +12,15 @@ in memory.
 
 - **Landing:** responsive introduction with sign-in, sign-up, and portfolio
   demo navigation.
-- **Authentication:** sign-in and sign-up forms with validation, password
-  visibility controls, and callbacks into the dashboard.
+- **Authentication:** compact sign-in and sign-up forms with validation, password
+  confirmation, consent checking, remember-me UI, and password visibility controls.
 - **Public portfolio:** introduction, biography, technical skills, experience,
   featured projects, and contact form fields.
 - **Dashboard:** project overview and local project creation, editing, and
-  deletion with confirmation dialogs.
-- **Publish & Share:** a demo visibility toggle and example portfolio URL.
+  deletion with confirmation dialogs. Desktop projects use a status table; mobile
+  projects use cards.
+- **Publish & Share:** a demo visibility toggle, example portfolio URL, and link
+  copying. QR generation and native sharing are not connected.
 - **Widgetbook:** screen use cases, button and project-card previews, a dark
   theme addon, and Linux desktop and Android phone viewports.
 
@@ -32,7 +34,10 @@ portfolio_widgetbook/
 ├── lib/
 │   ├── main.dart                       # PortfolioApp entry point and navigation
 │   ├── design/
-│   │   └── theme.dart                  # Palette and Material theme
+│   │   ├── theme.dart                  # Material theme
+│   │   ├── palette.dart                # Shared colors
+│   │   ├── control_themes.dart         # Form and button styles
+│   │   └── theme_parts.dart
 │   ├── models/
 │   │   └── project.dart                # Project model and sampleProjects
 │   ├── screens/
@@ -63,6 +68,7 @@ portfolio_widgetbook/
 │       ├── common.dart                 # Public widget exports
 │       ├── components.dart
 │       └── layout.dart
+├── assets/images/                     # Workspace artwork and generation prompt
 ├── test/
 │   ├── screens/                        # Screen behavior and responsive tests
 │   ├── widgets/                        # Shared widget tests
@@ -210,9 +216,10 @@ Breakpoints are defined per screen:
 
 | Area | Layout behavior |
 | --- | --- |
-| Landing and public portfolio | Mobile below 700 logical pixels; desktop from 700 |
+| Landing hero | Stacked below 1000 logical pixels; side by side from 1000 |
+| Landing header and public portfolio | Mobile below 700 logical pixels; desktop from 700 |
 | Dashboard navigation | Mobile below 800 logical pixels; sidebar from 800 |
-| Dashboard project grid | One column below 600; two below 800; three from 800 |
+| Dashboard projects | One column below 600; two below 800; status table from 800 |
 | Public portfolio project grid | One column on mobile; three on desktop |
 
 ## Current limitations
@@ -222,7 +229,8 @@ Breakpoints are defined per screen:
 - Dashboard project edits are local to that dashboard instance. They do not
   persist or update the separate public portfolio demo.
 - Other dashboard editors are placeholders.
-- Contact sending, CV download, and social-link actions are not implemented.
+- Contact sending, CV download, social authentication, and profile links are not
+  connected. These controls show explanatory messages.
 - The publishing toggle changes only local demo state. The displayed URL is
-  an example; publishing, copying links, QR generation, and native sharing are
-  not connected.
+  an example. Copy and Share copy that example URL; publishing, QR generation,
+  and native sharing are not connected.

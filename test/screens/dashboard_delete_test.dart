@@ -1,16 +1,8 @@
-import 'package:portfolio_widgetbook/widgets/common.dart';
-
 import '../support/dashboard_helpers.dart';
 import '../support/test_support.dart';
 
 Future<void> deleteHealthcare(WidgetTester tester) async {
-  final tile = find.ancestor(
-    of: find.text('Healthcare App'),
-    matching: find.byType(ProjectTile),
-  );
-  await tester.tap(
-    find.descendant(of: tile, matching: find.byTooltip('Delete')),
-  );
+  await tester.tap(find.byTooltip('Delete').first);
   await tester.pumpAndSettle();
 }
 
@@ -29,7 +21,7 @@ void main() {
     await tester.tap(find.widgetWithText(TextButton, 'Delete'));
     await tester.pumpAndSettle();
     expect(find.text('Healthcare App'), findsNothing);
-    expect(find.byType(ProjectTile), findsNWidgets(2));
+    expect(tester.widget<DataTable>(find.byType(DataTable)).rows.length, 2);
     await tester.tap(find.widgetWithText(ListTile, 'Dashboard'));
     await tester.pumpAndSettle();
     expect(find.text('2'), findsOneWidget);

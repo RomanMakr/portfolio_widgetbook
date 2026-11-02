@@ -20,11 +20,10 @@ class LandingHeroContent extends StatelessWidget {
     children: [
       const Chip(label: Text('Build • Manage • Share')),
       const SizedBox(height: 18),
-      Text(
-        'Create Your\nProfessional\nPortfolio',
-        style: Theme.of(
-          context,
-        ).textTheme.headlineLarge?.copyWith(fontSize: mobile ? 42 : 66),
+      AccentHeading(
+        leading: 'Create Your\nProfessional\n',
+        accent: 'Portfolio',
+        size: mobile ? 42 : 52,
       ),
       const SizedBox(height: 18),
       const Text(
@@ -41,9 +40,24 @@ class LandingHeroContent extends StatelessWidget {
         ],
       ),
       const SizedBox(height: 20),
-      const Text(
-        '✓ No coding required     ✓ Web & Mobile     ✓ Share anywhere',
-        style: TextStyle(color: Palette.muted),
+      Wrap(
+        spacing: 18,
+        runSpacing: 10,
+        children: ['No coding required', 'Web & Mobile', 'Free to start']
+            .map(
+              (text) => Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.check, size: 15),
+                  const SizedBox(width: 6),
+                  Text(
+                    text,
+                    style: const TextStyle(color: Palette.muted, fontSize: 12),
+                  ),
+                ],
+              ),
+            )
+            .toList(),
       ),
     ],
   );

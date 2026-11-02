@@ -42,7 +42,7 @@ void main() {
     await tester.tap(find.widgetWithText(ElevatedButton, 'Sign Up'));
     await tester.pumpAndSettle();
     expect(find.text('Create Account'), findsOneWidget);
-    expect(find.byType(TextFormField), findsNWidgets(3));
+    expect(find.byType(TextFormField), findsNWidgets(4));
 
     await tester.tap(find.text('Already have an account? Sign In'));
     await tester.pumpAndSettle();

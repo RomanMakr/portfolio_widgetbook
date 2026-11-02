@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'portfolio_hero_content.dart';
-import 'portfolio_hero_preview.dart';
+import 'portfolio_visuals.dart';
 
 class PortfolioHero extends StatelessWidget {
   final bool mobile;
+  final VoidCallback? onContact;
 
-  const PortfolioHero({super.key, required this.mobile});
+  const PortfolioHero({super.key, required this.mobile, this.onContact});
 
   @override
   Widget build(BuildContext context) => Flex(
@@ -15,10 +16,10 @@ class PortfolioHero extends StatelessWidget {
     children: [
       ExpandedIf(
         mobile: mobile,
-        child: PortfolioHeroContent(mobile: mobile),
+        child: PortfolioHeroContent(mobile: mobile, onContact: onContact),
       ),
       const SizedBox(width: 28, height: 30),
-      ExpandedIf(mobile: mobile, child: const PortfolioHeroPreview()),
+      ExpandedIf(mobile: mobile, child: const PortfolioVisuals()),
     ],
   );
 }

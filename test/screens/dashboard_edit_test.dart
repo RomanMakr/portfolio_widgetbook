@@ -1,21 +1,12 @@
-import 'package:portfolio_widgetbook/widgets/common.dart';
-
 import '../support/dashboard_helpers.dart';
 import '../support/test_support.dart';
-
-Finder healthcareTile() => find.ancestor(
-  of: find.text('Healthcare App'),
-  matching: find.byType(ProjectTile),
-);
 
 void main() {
   testWidgets('Editing replaces a project without increasing its count', (
     tester,
   ) async {
     await pumpProjects(tester);
-    await tester.tap(
-      find.descendant(of: healthcareTile(), matching: find.byTooltip('Edit')),
-    );
+    await tester.tap(find.byTooltip('Edit').first);
     await tester.pumpAndSettle();
     expect(
       tester.widget<TextField>(field('Project Title')).controller!.text,
@@ -30,16 +21,15 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Healthcare App'), findsNothing);
     expect(find.text('Updated Healthcare'), findsOneWidget);
-    expect(find.byType(ProjectTile), findsNWidgets(3));
+    expect(find.text('Published'), findsNWidgets(2));
+    expect(tester.widget<DataTable>(find.byType(DataTable)).rows.length, 3);
   });
 
   testWidgets('Cancelling an edit leaves the original project unchanged', (
     tester,
   ) async {
     await pumpProjects(tester);
-    await tester.tap(
-      find.descendant(of: healthcareTile(), matching: find.byTooltip('Edit')),
-    );
+    await tester.tap(find.byTooltip('Edit').first);
     await tester.pumpAndSettle();
     await tester.enterText(field('Project Title'), 'Unsaved title');
     await tester.tap(find.widgetWithText(TextButton, 'Cancel'));

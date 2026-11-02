@@ -28,9 +28,9 @@ class _AuthFormState extends State<AuthForm> {
       mainAxisSize: MainAxisSize.min,
       children: [
         AuthHeader(signUp: widget.signUp),
-        const SizedBox(height: 30),
+        const SizedBox(height: 24),
         AuthFields(signUp: widget.signUp),
-        const SizedBox(height: 14),
+        const SizedBox(height: 12),
         AuthFooter(
           signUp: widget.signUp,
           onSubmit: () {

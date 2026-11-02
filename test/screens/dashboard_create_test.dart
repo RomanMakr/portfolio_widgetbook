@@ -15,7 +15,15 @@ void main() {
     expect(find.byType(AlertDialog), findsNothing);
     await tester.ensureVisible(find.text('New API'));
     expect(find.text('Backend'), findsOneWidget);
-    expect(find.text('Reliable service'), findsOneWidget);
+    expect(find.text('Draft'), findsNWidgets(2));
+    await tester.tap(find.byTooltip('Edit').last);
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<TextField>(field('Description')).controller!.text,
+      'Reliable service',
+    );
+    await tester.tap(find.widgetWithText(TextButton, 'Cancel'));
+    await tester.pumpAndSettle();
     expect(find.text('Healthcare App'), findsOneWidget);
     await tester.tap(find.widgetWithText(ListTile, 'Dashboard'));
     await tester.pumpAndSettle();
